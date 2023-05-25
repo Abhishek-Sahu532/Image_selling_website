@@ -26,7 +26,7 @@ if(!user){
         err: "User not found"
     })
 }
-req.user = user// extending the object for the next function.
+req.user = user.dataValues   // extending the object for the next function.
 
 /**
  * const a={};
@@ -43,7 +43,7 @@ next()
 //FUNCTION FOR THE CHECK TO USER IS SELLER OR NOT
 const isSeller = async (req, res, next)=>{
     try {
-        if(req.user.dataValues.isSeller){
+        if(req.user.isSeller){
             next()
         }else{
             return res.status(401).json({
@@ -55,5 +55,18 @@ const isSeller = async (req, res, next)=>{
     }
 }
 
+const isBuyer = async (req, res, next)=>{
+    try {
+        if(!req.user.isSeller){
+            next()
+        }else{
+            return res.status(401).json({
+                err: "YOu are not seller"
+            })
+        }
+    } catch (error) {
+        
+    }
+}
 
-module.exports ={isAuthenticated, isSeller}
+module.exports ={isAuthenticated, isSeller ,isBuyer}

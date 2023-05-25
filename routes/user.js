@@ -80,6 +80,7 @@ const bearerToken = await jwt.sign(payload, 'SECRET MESSAGE',{
     expiresIn: 360000,
 
 });
+//JWT -JSON WEB TOKEN IS USED TO SUCCESSFULLY LOGIN THE PAGE
 
 res.cookie('t', bearerToken, {expire : new Date() + 9999});
 
